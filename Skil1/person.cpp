@@ -10,7 +10,7 @@ Person::Person(string name, short sex, short birthYear, short deathYear)
 
 void Person::display() {
     cout << "Name: " << name << endl;
-    cout << "Sex: " << sex << endl;
+    cout << "Sex: " << (sex == 0 ? "Male" : "Female") << endl;
     cout << "Birth year: " << birthYear << endl;
     if(deathYear >= 0) {
         cout << "Year of death: " << deathYear << endl;

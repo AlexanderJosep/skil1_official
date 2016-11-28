@@ -10,7 +10,12 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    person.cpp
+    person.cpp \
+    personmanager.cpp
 
 HEADERS += \
-    person.h
+    person.h \
+    personmanager.h
+
+DISTFILES += \
+    persons.txt

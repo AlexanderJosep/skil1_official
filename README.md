@@ -1,4 +1,5 @@
 # skil1_official
+test
 Skil 1
 
 Í þessum hluta skal skrifa console forrit með eftirfarandi kröfur til virkni:

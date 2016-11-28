@@ -3,3 +3,4 @@ Darri_Rafn 0 1991 2016
 Jon_Jonsson 0 1974 2024
 Sigurdur_Sigurdsson 0 1920 2002
 Alan_Turing 0 1855 1999
+Jack_Johnson 0 1777 1956

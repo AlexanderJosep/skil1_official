@@ -10,11 +10,12 @@ class Console
 {
 public:
     Console();
-    int getInstruction();
+    int getInstruction(int type);
     void printInstructions();
+    void printDisplayInstructions();
 private:
     char getChar(string s);
-    bool isValid(char c);
+    int getIndex(char c, int type);
 };
 
 

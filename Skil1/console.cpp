@@ -1,8 +1,12 @@
 #include "console.h"
 
-const char commands[4] = {'d', 's', 'i', 'q'};
-const string instructions[3] = {"Use 'd' to display persons and 's' to search.", "Use 'i' to display instructions",
-                                "Use 'q' if you want to quit."};
+//display, search, add, info, quit, no organization, org. names in alphabetical order, org. by sex, org. by birth year, org. by death year
+const char commands[10] = {'d', 's', 'a', 'i', 'q', 'o', 'n', 's', 'b', 'd'};
+const string instructions[4] = {"Use 'd' to display persons ", "Use 's' to search for a person", "Use 'a' to add a person",
+                                "Use 'i' to display info on instructions", "Use 'q' if you want to quit."};
+const string displayInstructions[3] = {"Organizing: Use 'n' to organize by names in alphabetical order.",
+                                       "Use 's' to organize by sex, 'b' to organize by birth year and 'd' to organize by death year.",
+                                       "Use 'o' to have no organization."};
 
 Console::Console()
 {
@@ -10,8 +14,14 @@ Console::Console()
 }
 
 void Console::printInstructions() {
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 5; i++) {
          cout << instructions[i] << endl;
+    }
+}
+
+void Console::printDisplayInstructions() {
+    for(int i = 0; i < 3; i++) {
+         cout << displayInstructions[i] << endl;
     }
 }
 
@@ -22,31 +32,29 @@ char Console::getChar(string s) {
     return c;
 }
 
-bool Console::isValid(char c) {
-    for(int i = 0; i < 4; i++) {
+//type = 0 checks for basic commands, type = 1 checks for display organization commands
+int Console::getIndex(char c, int type) {
+    for(int i = type * 5; i < (type + 1) * 5; i++) {
         if(c == commands[i]) {
-            return true;
+            return i;
         }
     }
-    return false;
+    return -1;
 }
 
-//0 = display, 1 = search, c = write out possible instructions, 3 = quit
-int Console::getInstruction() {
-    char c;
+int Console::getInstruction(int type) {
+    if(type == 2) {
+        return (getChar("Reverse output(y/n)") == 'y' ? 1 : 0);
+    }
+    int i;
     while(true) {
-        c = getChar("Instruction");
-        if(!isValid(c)) {
+        i = getIndex(getChar((type == 0 ? "Instruction" : "Organization")), type);
+        if(i < 0) {
             cout << "Invalid command!" << endl;
             continue;
         } else {
             break;
         }
     }
-    for(int i = 0; i < 4; i++) {
-        if(c == commands[i]) {
-            return i;
-        }
-    }
-    return -1;
+    return i - (type == 1 ? 5 : 0);
 }

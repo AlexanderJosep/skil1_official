@@ -13,7 +13,8 @@ class PersonManager
 {
 public:
     PersonManager(string fileName);
-    void displayPersons();
+    vector<Person> getOrganizedPersons(int o);
+    void displayPersons(int o, bool rev);
 private:
     vector<Person> persons;
 };

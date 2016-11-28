@@ -5,27 +5,30 @@
 using namespace std;
 
 const string FILE_NAME = "persons.txt";
-const string displayInstructions[2] = {"Organizing: Use 's' to organize by sex, ", "Use 'q' if you want to quit."};
-
-char getChar() {
-    char c;
-    cin >> c;
-    return c;
-}
 
 void process() {
     PersonManager pm = PersonManager(FILE_NAME);
     Console c = Console();
     c.printInstructions();
     while(true) {
-        int i = c.getInstruction();
-        if(i == 0) {
-            pm.displayPersons();
+        int i = c.getInstruction(0);
+        if(i == 0) { // display
+            c.printDisplayInstructions();
+            int o = c.getInstruction(1);
+            bool rev = c.getInstruction(2) == 1;
+            cout << endl;
+            pm.displayPersons(o, rev);
         }
-        if(i == 2) {
+        if(i == 1) { // search
+
+        }
+        if(i == 2) { // add person
+
+        }
+        if(i == 3) { // info
             c.printInstructions();
         }
-        if(i == 3) {
+        if(i == 4) { // quit
             break;
         }
     }

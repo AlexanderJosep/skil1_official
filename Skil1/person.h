@@ -9,8 +9,13 @@ class Person
 {
 public:
     Person(string name, short sex, short birthYear, short deathYear);
-    void display();
+    string getName();
+    short getSex();
+    short getBirthYear();
+    short getDeathYear();
+    void display(int type);
 private:
+    void updateString(string &o, string data);
     string name;
     short sex; // 0 male, 1 female
     short birthYear;

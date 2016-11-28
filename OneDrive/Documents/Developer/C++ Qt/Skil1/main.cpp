@@ -9,5 +9,6 @@ int main()
 {
     PersonManager pm = PersonManager(FILE_NAME);
     pm.displayPersons();
+    pm.displayPersons();
     return 1;
 }

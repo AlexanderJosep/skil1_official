@@ -1,9 +1,9 @@
 #include "person.h"
 
-Person::Person(string name, short sex, short birthYear, short deathYear)
+Person::Person(string name, short gender, short birthYear, short deathYear)
 {
     this -> name = name;
-    this -> sex = sex;
+    this -> gender = gender;
     this -> birthYear = birthYear;
     this -> deathYear = deathYear;
 }
@@ -12,8 +12,8 @@ string Person::getName() {
     return name;
 }
 
-short Person::getSex() {
-    return sex;
+short Person::getGender() {
+    return gender;
 }
 
 short Person::getBirthYear() {
@@ -24,15 +24,15 @@ short Person::getDeathYear() {
     return deathYear;
 }
 
-//type: 0/1 = organize by name, 2 = organize by sex, 3 = organize by birth year, 4 = organize by death year
+//type: 0/1 = organize by name, 2 = organize by gender, 3 = organize by birth year, 4 = organize by death year
 void Person::display(int type) {
     string out = "";
-    string s = (sex == 0 ? "Male" : "Female");
+    string s = (gender == 0 ? "Male" : "Female");
     if(type == 0 || type == 1) {
         updateString(out, "Name: " + name);
     }
     if(type == 2) {
-        updateString(out, "Sex: " + s);
+        updateString(out, "Gender: " + s);
     }
     if(type == 3) {
        updateString(out, "Birth year: " + birthYear);
@@ -45,7 +45,7 @@ void Person::display(int type) {
         updateString(out, "Name: " + name);
     }
     if(type != 2) {
-        updateString(out, "Sex: " + s);
+        updateString(out, "Gender: " + s);
     }
     if(type != 3) {
        updateString(out, "Birth year: " + birthYear);

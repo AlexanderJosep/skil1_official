@@ -5,12 +5,12 @@ PersonManager::PersonManager(string fileName)
     ifstream in;
     in.open(fileName);
     string name;
-    short sex;
+    short gender;
     short birthYear;
     short deathYear;
-    while(in >> name && in >> sex && in >> birthYear && in >> deathYear) {
+    while(in >> name && in >> gender && in >> birthYear && in >> deathYear) {
         replace(name.begin(), name.end(), '_', ' ' );
-        persons.push_back(Person(name, sex, birthYear, deathYear));
+        persons.push_back(Person(name, gender, birthYear, deathYear));
     }
     in.close();
 }
@@ -36,10 +36,10 @@ vector<Person> PersonManager::getOrganizedPersons(int o) {
         }
         return out;
     }
-    if(o == 2) { // organize by sex
+    if(o == 2) { // organize by gender
         for(int j = 0; j < 2; j++) {
             for(unsigned int i = 0; i < persons.size(); i++) {
-                if(persons[i].getSex() == j) {
+                if(persons[i].getGender() == j) {
                     out.push_back(persons[i]);
                 }
             }
@@ -47,7 +47,11 @@ vector<Person> PersonManager::getOrganizedPersons(int o) {
         return out;
     }
     if(o == 3) { // organize by birth year
-
+        for(unsigned int i = 0; i < persons.size(); i++) {
+            if(persons[i].getBirthYear() > persons[i + 1].getBirthYear()) {
+                out.push_back(persons[i]);
+            }
+        }
     }
     if(o == 4) { // organize by death year
 

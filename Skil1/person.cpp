@@ -40,7 +40,6 @@ void Person::display(int type) {
     if(type == 4) {
         updateString(out, "Year of death: " + deathYear);
     }
-
     if(type != 0 && type != 1) {
         updateString(out, "Name: " + name);
     }

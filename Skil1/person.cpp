@@ -35,7 +35,7 @@ void Person::display(int type) {
         updateString(out, "Gender: " + s);
     }
     if(type == 3) {
-       updateString(out, "Birth year: " + birthYear);
+        updateString(out, "Birth year: " + birthYear);
     }
     if(type == 4) {
         updateString(out, "Year of death: " + deathYear);
@@ -48,7 +48,7 @@ void Person::display(int type) {
         updateString(out, "Gender: " + s);
     }
     if(type != 3) {
-       updateString(out, "Birth year: " + birthYear);
+        updateString(out, "Birth year: " + birthYear);
     }
     if(type != 4 && deathYear >= 0) {
         updateString(out, "Year of death: " + deathYear);

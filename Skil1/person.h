@@ -8,16 +8,16 @@ using namespace std;
 class Person
 {
 public:
-    Person(string name, short sex, short birthYear, short deathYear);
+    Person(string name, short gender, short birthYear, short deathYear);
     string getName();
-    short getSex();
+    short getGender();
     short getBirthYear();
     short getDeathYear();
     void display(int type);
 private:
     void updateString(string &o, string data);
     string name;
-    short sex; // 0 male, 1 female
+    short gender; // 0 male, 1 female
     short birthYear;
     short deathYear; // -1 if not dead
 };

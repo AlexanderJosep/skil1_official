@@ -12,12 +12,14 @@ class Console
 {
 public:
     Console();
+    char getChar(string s);
+    short getShort(string s);
+    string getString(string s);
     int getInstruction(int type);
     void printInstructions();
     void printDisplayInstructions();
     void printPersons(vector<Person> persons, bool reverse, int o);
 private:
-    char getChar(string s);
     int getIndex(char c, int type);
 };
 

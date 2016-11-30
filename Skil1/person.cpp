@@ -24,6 +24,12 @@ short Person::getDeathYear() {
     return deathYear;
 }
 
+string Person::getStoreOutput() {
+    string copy = name;
+    replace(copy.begin(), copy.end(), ' ', '_' );
+    return copy + " " + to_string(gender) + " " + to_string(birthYear) + " " + to_string(deathYear);
+}
+
 //type: 0/1 = organize by name, 2 = organize by gender, 3 = organize by birth year, 4 = organize by death year
 string Person::getOutput(int type) {
     string out = "";

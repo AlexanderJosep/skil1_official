@@ -2,6 +2,7 @@
 #define PERSON_H
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ public:
     short getGender();
     short getBirthYear();
     short getDeathYear();
+    string getStoreOutput();
     string getOutput(int type);
 private:
     void updateString(string &o, string data);

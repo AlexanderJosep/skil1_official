@@ -13,23 +13,25 @@ Console::Console()
 
 }
 
-void Console::printInstructions() {
-    for(int i = 0; i < 5; i++) {
-         cout << instructions[i] << endl;
-    }
-}
-
-void Console::printDisplayInstructions() {
-    for(int i = 0; i < 3; i++) {
-         cout << displayInstructions[i] << endl;
-    }
-}
-
 char Console::getChar(string s) {
     cout << s << ": ";
     char c;
     cin >> c;
     return c;
+}
+
+short Console::getShort(string s) {
+    cout << s << ": ";
+    short in;
+    cin >> in;
+    return in;
+}
+
+string Console::getString(string s) {
+    cout << s << ": ";
+    string in;
+    cin >> in;
+    return in;
 }
 
 //type = 0 checks for basic commands, type = 1 checks for display organization commands
@@ -62,5 +64,17 @@ int Console::getInstruction(int type) {
 void Console::printPersons(vector<Person> persons, bool reverse, int o) {
     for(unsigned int i = (reverse ? persons.size() - 1 : 0); i < persons.size(); i += (reverse ? -1 : 1)) {
         cout << persons[i].getOutput(o) << endl;
+    }
+}
+
+void Console::printInstructions() {
+    for(int i = 0; i < 5; i++) {
+         cout << instructions[i] << endl;
+    }
+}
+
+void Console::printDisplayInstructions() {
+    for(int i = 0; i < 3; i++) {
+         cout << displayInstructions[i] << endl;
     }
 }

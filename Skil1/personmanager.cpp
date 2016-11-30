@@ -46,14 +46,28 @@ vector<Person> PersonManager::getOrganizedPersons(int o) {
         }
         return out;
     }
-    if(o == 3) { // organize by birth year
+    if(o == 3 || o == 4) { // organize by birth year or by death year
+        vector<int> years;
+        vector<Person> copy;
         for(unsigned int i = 0; i < persons.size(); i++) {
-            if(persons[i].getBirthYear() > persons[i + 1].getBirthYear()) {
-                out.push_back(persons[i]);
+            if((o == 3 && persons[i].getBirthYear() >= 0) || (o == 4 && persons[i].getDeathYear() >= 0)) {
+                years.push_back(o == 3 ? persons[i].getBirthYear() : persons[i].getDeathYear());
             }
         }
-    }
-    if(o == 4) { // organize by death year
+        sort(years.begin(), years.end());
+        for(unsigned int i = 0; i < persons.size(); i++) {
+            copy.push_back(persons[i]);
+        }
+        for(unsigned int i = 0; i < years.size(); i++) {
+            for(unsigned int j = 0; j < copy.size(); j++) {
+                if((o == 3 && years[i] == copy[j].getBirthYear()) || (o == 4 && years[i] == copy[j].getDeathYear())) {
+                    out.push_back(copy[j]);
+                    copy.erase(copy.begin() + j);
+                    break;
+                }
+            }
+        }
+        return out;
 
     }
     return out;

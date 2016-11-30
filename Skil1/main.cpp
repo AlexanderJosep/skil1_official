@@ -31,6 +31,9 @@ void process() {
         if(i == 4) { // quit
             break;
         }
+        if(i == 5) { //Secret phase
+
+        }
     }
 }
 

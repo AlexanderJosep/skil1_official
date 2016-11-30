@@ -1,7 +1,6 @@
 #include "personmanager.h"
 
-PersonManager::PersonManager(string fileName)
-{
+PersonManager::PersonManager(string fileName) {
     ifstream in;
     in.open(fileName);
     string name;
@@ -13,6 +12,19 @@ PersonManager::PersonManager(string fileName)
         persons.push_back(Person(name, gender, birthYear, deathYear));
     }
     in.close();
+}
+
+void PersonManager::save(string fileName) {
+    ofstream out;
+    out.open(fileName);
+    for(unsigned int i = 0; i < persons.size(); i++) {
+        out << persons[i].getStoreOutput() << endl;
+    }
+}
+
+void PersonManager::add(string fileName, string name, short gender, short birthYear, short deathYear) {
+    persons.push_back(Person(name, gender, birthYear, deathYear));
+    save(fileName);
 }
 
 vector<Person> PersonManager::getOrganizedPersons(int o) {

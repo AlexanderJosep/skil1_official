@@ -23,7 +23,18 @@ void process() {
 
         }
         if(i == 2) { // add person
-
+            string name = c.getString("Name");
+            short gender;
+            while(true) {
+                char g = c.getChar("Gender (m/f)");
+                if(g == 'm' || g == 'f') {
+                    gender = (g == 'm' ? 0 : 1);
+                    break;
+                }
+            }
+            short birthYear = c.getShort("Birth year");
+            short deathYear = c.getShort("Death year");
+            pm.add(FILE_NAME, name, gender, birthYear, deathYear);
         }
         if(i == 3) { // info
             c.printInstructions();

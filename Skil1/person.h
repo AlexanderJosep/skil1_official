@@ -13,7 +13,7 @@ public:
     short getGender();
     short getBirthYear();
     short getDeathYear();
-    void display(int type);
+    string getOutput(int type);
 private:
     void updateString(string &o, string data);
     string name;

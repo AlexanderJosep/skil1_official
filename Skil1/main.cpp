@@ -17,7 +17,7 @@ void process() {
             int o = c.getInstruction(1);
             bool rev = c.getInstruction(2) == 1;
             cout << endl;
-            pm.displayPersons(o, rev);
+            c.printPersons(pm.getOrganizedPersons(o), rev, o);
         }
         if(i == 1) { // search
 

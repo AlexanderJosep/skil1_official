@@ -44,17 +44,23 @@ int Console::getIndex(char c, int type) {
 
 int Console::getInstruction(int type) {
     if(type == 2) {
-        return (getChar("Reverse output(y/n)") == 'y' ? 1 : 0);
+        return (getChar("Reverse output (y/n)") == 'y' ? 1 : 0);
     }
     int i;
     while(true) {
         i = getIndex(getChar((type == 0 ? "Instruction" : "Organization")), type);
         if(i < 0) {
-            cout << "Invalid command!" << endl;
+            cout << "Invalid command! " << endl;
             continue;
         } else {
             break;
         }
     }
     return i - (type == 1 ? 5 : 0);
+}
+
+void Console::printPersons(vector<Person> persons, bool reverse, int o) {
+    for(unsigned int i = (reverse ? persons.size() - 1 : 0); i < persons.size(); i += (reverse ? -1 : 1)) {
+        cout << persons[i].getOutput(o) << endl;
+    }
 }

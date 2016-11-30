@@ -58,10 +58,3 @@ vector<Person> PersonManager::getOrganizedPersons(int o) {
     }
     return out;
 }
-
-void PersonManager::displayPersons(int o, bool rev) {
-    vector<Person> persons = getOrganizedPersons(o);
-    for(unsigned int i = (rev ? persons.size() - 1 : 0); i < persons.size(); i += (rev ? -1 : 1)) {
-        persons[i].display(o);
-    }
-}

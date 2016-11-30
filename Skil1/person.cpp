@@ -25,7 +25,7 @@ short Person::getDeathYear() {
 }
 
 //type: 0/1 = organize by name, 2 = organize by gender, 3 = organize by birth year, 4 = organize by death year
-void Person::display(int type) {
+string Person::getOutput(int type) {
     string out = "";
     string s = (gender == 0 ? "Male" : "Female");
     if(type == 0 || type == 1) {
@@ -35,10 +35,10 @@ void Person::display(int type) {
         updateString(out, "Gender: " + s);
     }
     if(type == 3) {
-        updateString(out, "Birth year: " + birthYear);
+        updateString(out, "Birth year: " + to_string(birthYear));
     }
     if(type == 4) {
-        updateString(out, "Year of death: " + deathYear);
+        updateString(out, "Year of death: " + to_string(deathYear));
     }
     if(type != 0 && type != 1) {
         updateString(out, "Name: " + name);
@@ -47,12 +47,12 @@ void Person::display(int type) {
         updateString(out, "Gender: " + s);
     }
     if(type != 3) {
-        updateString(out, "Birth year: " + birthYear);
+        updateString(out, "Birth year: " + to_string(birthYear));
     }
     if(type != 4 && deathYear >= 0) {
-        updateString(out, "Year of death: " + deathYear);
+        updateString(out, "Year of death: " + to_string(deathYear));
     }
-    cout << out << endl;
+    return out;
 }
 
 void Person::updateString(string &o, string data) {

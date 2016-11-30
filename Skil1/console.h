@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include "person.h"
 
 using namespace std;
 
@@ -13,6 +15,7 @@ public:
     int getInstruction(int type);
     void printInstructions();
     void printDisplayInstructions();
+    void printPersons(vector<Person> persons, bool reverse, int o);
 private:
     char getChar(string s);
     int getIndex(char c, int type);

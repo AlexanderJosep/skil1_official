@@ -13,7 +13,6 @@ Console::Console()
 
 }
 
-<<<<<<< HEAD
 void Console::printInstructions() {
     for(int i = 0; i < 6; i++) {
          cout << instructions[i] << endl;
@@ -26,8 +25,6 @@ void Console::printDisplayInstructions() {
     }
 }
 
-=======
->>>>>>> ee429e7d8e8912dbc901047f2fc1dca385a7c3ef
 char Console::getChar(string s) {
     cout << s << ": ";
     char c;
@@ -79,17 +76,5 @@ int Console::getInstruction(int type) {
 void Console::printPersons(vector<Person> persons, bool reverse, int o) {
     for(unsigned int i = (reverse ? persons.size() - 1 : 0); i < persons.size(); i += (reverse ? -1 : 1)) {
         cout << persons[i].getOutput(o) << endl;
-    }
-}
-
-void Console::printInstructions() {
-    for(int i = 0; i < 5; i++) {
-         cout << instructions[i] << endl;
-    }
-}
-
-void Console::printDisplayInstructions() {
-    for(int i = 0; i < 3; i++) {
-         cout << displayInstructions[i] << endl;
     }
 }

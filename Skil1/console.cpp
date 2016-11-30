@@ -50,7 +50,7 @@ int Console::getInstruction(int type) {
     while(true) {
         i = getIndex(getChar((type == 0 ? "Instruction" : "Organization")), type);
         if(i < 0) {
-            cout << "Invalid command! " << endl;
+            cout << "Invalid command!" << endl;
             continue;
         } else {
             break;

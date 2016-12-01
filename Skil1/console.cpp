@@ -49,7 +49,7 @@ short Console::getShort(string s) {
 
 string Console::getString(string s) {
     cin.ignore();
-    cout << s << ": ";
+    cout << s << " (Max 30 char): ";
     string in;
     getline(cin, in);
     return in;

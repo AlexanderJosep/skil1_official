@@ -7,7 +7,4 @@ Alan_Jay_Perlis 0 1922 1990
 John_McCarthy 0 1927 2011
 John_Warner_Backus 0 1924 2007
 Marvin_Lee_Minsky 0 1927 2016
-Darri_Rafn 0 1991 -1
-Darri_Rafn_Hólm 0 1992 -1
-Darr_Ra_Hi 0 1993 -1
-Darri_X 1 2017 -1
+

@@ -39,8 +39,25 @@ void process() {
                 }
             }
             short birthYear = c.getShort("Birth year");
-            short deathYear = c.getShort("Death year");
-            pm.add(FILE_NAME, name, gender, birthYear, deathYear);
+
+            //short answer;
+            while(true) {
+                char a = c.getChar("Is person dead? (y/n)");
+                if(a == 'n') {
+                    //answer = (a == 'n' ? 0 : 1);
+                    break;
+                }
+                else if(a == 'y'){
+                    short deathYear = c.getShort("Death year");
+                    pm.add(FILE_NAME, name, gender, birthYear, deathYear);
+                    break;
+                }
+
+            }
+
+
+
+
         }
         if(i == 3) { // info
             c.printInstructions();

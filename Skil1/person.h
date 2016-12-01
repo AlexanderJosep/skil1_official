@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -17,7 +19,7 @@ public:
     string getStoreOutput();
     string getOutput(int type);
 private:
-    void updateString(string &o, string data);
+    void updateString(ostringstream &o, string data, int &priorLength);
     string name;
     short gender; // 0 male, 1 female
     short birthYear;

@@ -25,6 +25,14 @@ void Console::printDisplayInstructions() {
     }
 }
 
+void Console::printColumns() {
+    cout << "Name:" << setw(30) << "Gender:" << setw(30) << "Birth year:" << setw(30) << "Death year:" << endl;
+    for (int i = 0; i < 110; i++) {
+        cout << "=";
+    }
+    cout << endl;
+}
+
 char Console::getChar(string s) {
     cout << s << ": ";
     char c;

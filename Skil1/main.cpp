@@ -2,6 +2,10 @@
 #include "personmanager.h"
 #include "console.h"
 
+#include <iomanip>
+#include <sstream>
+#include <string>
+
 using namespace std;
 
 const string FILE_NAME = "persons.txt";
@@ -17,7 +21,9 @@ void process() {
             int o = c.getInstruction(1);
             bool rev = c.getInstruction(2) == 1;
             cout << endl;
-            c.printPersons(pm.getOrganizedPersons(o), rev, o);
+            c.printColumns();
+
+    c.printPersons(pm.getOrganizedPersons(o), rev, o);
         }
         if(i == 1) { // search
 

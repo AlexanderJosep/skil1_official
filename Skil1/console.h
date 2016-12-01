@@ -18,6 +18,7 @@ public:
     int getInstruction(int type);
     void printInstructions();
     void printDisplayInstructions();
+    void printColumns();
     void printPersons(vector<Person> persons, bool reverse, int o);
 private:
     int getIndex(char c, int type);

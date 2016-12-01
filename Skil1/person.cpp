@@ -32,38 +32,40 @@ string Person::getStoreOutput() {
 
 //type: 0/1 = organize by name, 2 = organize by gender, 3 = organize by birth year, 4 = organize by death year
 string Person::getOutput(int type) {
-    string out = "";
+   ostringstream out;
     string s = (gender == 0 ? "Male" : "Female");
+    int priorLength  = 0;
     if(type == 0 || type == 1) {
-        updateString(out, "Name: " + name);
+        updateString(out, "" + name, priorLength);
     }
     if(type == 2) {
-        updateString(out, "Gender: " + s);
+        updateString(out, "" + s, priorLength);
     }
     if(type == 3) {
-        updateString(out, "Birth year: " + to_string(birthYear));
+        updateString(out, "" + to_string(birthYear), priorLength);
     }
     if(type == 4) {
-        updateString(out, "Year of death: " + to_string(deathYear));
+        updateString(out, "" + to_string(deathYear), priorLength);
     }
     if(type != 0 && type != 1) {
-        updateString(out, "Name: " + name);
+        updateString(out, "" + name, priorLength);
     }
     if(type != 2) {
-        updateString(out, "Gender: " + s);
+        updateString(out, "" + s, priorLength);
     }
     if(type != 3) {
-        updateString(out, "Birth year: " + to_string(birthYear));
+        updateString(out, "" + to_string(birthYear), priorLength);
     }
     if(type != 4 && deathYear >= 0) {
-        updateString(out, "Year of death: " + to_string(deathYear));
+        updateString(out, "" + to_string(deathYear), priorLength);
     }
-    return out;
+    return out.str();
 }
 
-void Person::updateString(string &o, string data) {
-    if(o.length() > 0) {
-        o += ", ";
+void Person::updateString(ostringstream &o, string data, int &priorLength) {
+    if(o.tellp() > 0 && priorLength < 30) {
+        o << setw(30 - (priorLength - data.length()));
     }
-    o += data;
+    o << data;
+    priorLength = data.length();
 }

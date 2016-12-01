@@ -5,9 +5,9 @@
 const char commands[11] = {'d', 's', 'a', 'i', 'q', 'S', 'o', 'n', 'g', 'b', 'd'};
 const string instructions[6] = {"Use 'a' to add a person.", "Use 'd' to display persons.", "Use 'i' to display info on instructions.",
                                 "Use 's' to search for a person.", "Use 'q' if you want to quit.", "Use 'S' for a secret ;)"};
-const string displayInstructions[3] = {"Organizing: Use 'n' to organize by names in alphabetical order.",
-                                       "Use 'g' to organize by gender, 'b' to organize by birth year and 'd' to organize by death year.",
-                                       "Use 'o' to have no organization."};
+
+const string displayInstructions[5] = {"Use 'b' to organize by birth year." ,"Use 'd' to organize by death year." ,"Use 'g' to organize by gender.",
+                                       "Use 'n' to organize by names in alphabetical order." ,"Use 'o' to have no organization."};
 
 Console::Console()
 {
@@ -21,7 +21,7 @@ void Console::printInstructions() {
 }
 
 void Console::printDisplayInstructions() {
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 5; i++) {
          cout << displayInstructions[i] << endl;
     }
 }

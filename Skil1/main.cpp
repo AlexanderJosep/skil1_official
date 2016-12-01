@@ -23,39 +23,46 @@ void process() {
             cout << endl;
             c.printColumns();
 
-    c.printPersons(pm.getOrganizedPersons(o), rev, o);
-        }
-        if(i == 1) { // search
+        c.printPersons(pm.getOrganizedPersons(o), rev, o);
+                }
+                if(i == 1) { // search
 
-        }
-        if(i == 2) { // add person
-            string name = c.getString("Name");
-            short gender;
-            while(true) {
-                char g = c.getChar("Gender (m/f)");
-                if(g == 'm' || g == 'f') {
-                    gender = (g == 'm' ? 0 : 1);
-                    break;
                 }
-            }
-            short birthYear = c.getShort("Birth year");
+                if(i == 2) { // add person
+                    string name = c.getString("Name");
+                    short gender;
+                    while(true) {
+                        char g = c.getChar("Gender (m/f)");
+                        if(g == 'm' || g == 'f') {
+                            gender = (g == 'm' ? 0 : 1);
+                            break;
+                        } else {
+                            cout << "Impossible, please select again!" << endl;
+                        }
+                    }
+                    short birthYear = c.getShort("Birth year");
+                    while (birthYear <= 0 || birthYear >= 2016){
+                            cout << "Impossible, please select again!" << endl;
+                            birthYear = c.getShort("Birth year");
+                            break;
+                    }
 
-            //short answer;
-            while(true) {
-                char a = c.getChar("Is person dead? (y/n)");
-                if(a == 'n') {
-                    pm.add(FILE_NAME, name, gender, birthYear, -1);
-                    cout << "You have added a person to the list. " << endl;
-                    break;
+                    //short answer;
+                    while(true) {
+                        char a = c.getChar("Is person dead? (y/n)");
+                        if(a == 'n') {
+                            pm.add(FILE_NAME, name, gender, birthYear, -1);
+                            cout << "You have added a person to the list. " << endl;
+                            break;
+                        }
+                        else if(a == 'y'){
+                            short deathYear = c.getShort("Death year");
+                            pm.add(FILE_NAME, name, gender, birthYear, deathYear);
+                            cout << "You have added a person to the list. " << endl;
+                            break;
+                        }
+                    }
                 }
-                else if(a == 'y'){
-                    short deathYear = c.getShort("Death year");
-                    pm.add(FILE_NAME, name, gender, birthYear, deathYear);
-                    cout << "You have added a person to the list. " << endl;
-                    break;
-                }
-            }
-        }
         if(i == 3) { // info
             c.printInstructions();
         }

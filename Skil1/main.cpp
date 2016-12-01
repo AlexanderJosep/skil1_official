@@ -44,7 +44,6 @@ void process() {
                     while (birthYear <= 0 || birthYear >= 2016){
                             cout << "Impossible, please select again!" << endl;
                             birthYear = c.getShort("Birth year");
-                            break;
                     }
 
                     //short answer;

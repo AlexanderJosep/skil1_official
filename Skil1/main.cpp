@@ -56,12 +56,20 @@ void process() {
                 }
                 else if(a == 'y'){
                     short deathYear = c.getShort("Death year");
-                    pm.add(FILE_NAME, name, gender, birthYear, deathYear);
+                    if(deathYear >= birthYear) {
+                        pm.add(FILE_NAME, name, gender, birthYear, deathYear);
+                    }
+                    else {
+                        while(deathYear < birthYear){
+                            cout << "Impossible, please select again!" << endl;
+                            deathYear = c.getShort("Death year");
+                        }
+                        pm.add(FILE_NAME, name, gender, birthYear, deathYear);
+                    }
                     cout << "You have added a person to the list. " << endl;
                     break;
                 }
             }
-        }
         if(i == 3) { // info
             c.printInstructions();
         }
@@ -73,10 +81,10 @@ void process() {
         }
     }
 }
+}
 
 //rada eftir kyni, ari, nafni, danardag
-int main()
-{
+int main() {
     process();
     return 1;
 }

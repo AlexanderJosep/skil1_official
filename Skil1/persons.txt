@@ -7,7 +7,4 @@ Alan_Jay_Perlis 0 1922 1990
 John_McCarthy 0 1927 2011
 John_Warner_Backus 0 1924 2007
 Marvin_Lee_Minsky 0 1927 2016
-Jon 1 1995 2013
-Jona 1 1992 2015
-Hanna 1 1972 2005
-Sigga 1 1992 2000
+Steinunn 1 1994 -1

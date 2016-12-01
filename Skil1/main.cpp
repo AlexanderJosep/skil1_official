@@ -44,7 +44,7 @@ void process() {
             while(true) {
                 char a = c.getChar("Is person dead? (y/n)");
                 if(a == 'n') {
-                    //answer = (a == 'n' ? 0 : 1);
+                    pm.add(FILE_NAME, name, gender, birthYear, -1);
                     break;
                 }
                 else if(a == 'y'){

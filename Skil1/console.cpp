@@ -3,8 +3,8 @@
 
 //display, search, add, info, quit, no organization, org. names in alphabetical order, org. by gender, org. by birth year, org. by death year
 const char commands[11] = {'d', 's', 'a', 'i', 'q', 'S', 'o', 'n', 'g', 'b', 'd'};
-const string instructions[6] = {"Use 'a' to add a person", "Use 'd' to display persons ", "Use 'i' to display info on instructions",
-                                "Use 's' to search for a person", "Use 'q' if you want to quit.", "Use 'S' for a secret ;)."};
+const string instructions[6] = {"Use 'a' to add a person.", "Use 'd' to display persons.", "Use 'i' to display info on instructions.",
+                                "Use 's' to search for a person.", "Use 'q' if you want to quit.", "Use 'S' for a secret ;)"};
 const string displayInstructions[3] = {"Organizing: Use 'n' to organize by names in alphabetical order.",
                                        "Use 'g' to organize by gender, 'b' to organize by birth year and 'd' to organize by death year.",
                                        "Use 'o' to have no organization."};

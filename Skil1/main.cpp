@@ -52,12 +52,7 @@ void process() {
                     pm.add(FILE_NAME, name, gender, birthYear, deathYear);
                     break;
                 }
-
             }
-
-
-
-
         }
         if(i == 3) { // info
             c.printInstructions();

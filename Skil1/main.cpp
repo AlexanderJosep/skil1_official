@@ -45,11 +45,13 @@ void process() {
                 char a = c.getChar("Is person dead? (y/n)");
                 if(a == 'n') {
                     pm.add(FILE_NAME, name, gender, birthYear, -1);
+                    cout << "You have added a person to the list. " << endl;
                     break;
                 }
                 else if(a == 'y'){
                     short deathYear = c.getShort("Death year");
                     pm.add(FILE_NAME, name, gender, birthYear, deathYear);
+                    cout << "You have added a person to the list. " << endl;
                     break;
                 }
             }

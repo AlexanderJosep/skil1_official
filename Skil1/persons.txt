@@ -7,3 +7,6 @@ Alan_Jay_Perlis 0 1922 1990
 John_McCarthy 0 1927 2011
 John_Warner_Backus 0 1924 2007
 Marvin_Lee_Minsky 0 1927 2016
+Darri_Rafn_Hólmarsson 0 1991 -1
+ri_Rafn_Hólmarsson 0 1991 -1
+Jon_Johns 0 1964 2000

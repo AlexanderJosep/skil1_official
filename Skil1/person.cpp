@@ -32,7 +32,7 @@ string Person::getStoreOutput() {
 
 //type: 0/1 = organize by name, 2 = organize by gender, 3 = organize by birth year, 4 = organize by death year
 string Person::getOutput(int type) {
-   ostringstream out;
+    ostringstream out;
     string s = (gender == 0 ? "Male" : "Female");
     int priorLength  = 0;
     if(type == 0 || type == 1) {

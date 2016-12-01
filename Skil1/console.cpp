@@ -1,5 +1,4 @@
 #include "console.h"
-#include <iomanip>
 
 //display, search, add, info, quit, no organization, org. names in alphabetical order, org. by gender, org. by birth year, org. by death year
 const char commands[10] = {'d', 's', 'a', 'i', 'q', 'o', 'n', 'g', 'b', 'd'};
@@ -49,9 +48,10 @@ short Console::getShort(string s) {
 }
 
 string Console::getString(string s) {
+    cin.ignore();
     cout << s << ": ";
     string in;
-    cin >> in;
+    getline(cin, in);
     return in;
 }
 

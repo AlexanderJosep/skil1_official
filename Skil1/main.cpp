@@ -1,9 +1,5 @@
-#include <iostream>
-#include <iomanip>
-#include <sstream>
 #include <string>
 
-#include "personmanager.h"
 #include "console.h"
 
 using namespace std;

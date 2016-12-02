@@ -1,11 +1,14 @@
 #include "console.h"
 #include "personmanager.h"
 
-//display, search, add, info, quit, no organization, org. names in alphabetical order, org. by gender, org. by birth year, org. by death year
-const char commands[10] = {'d', 's', 'a', 'i', 'q', 'o', 'n', 'g', 'b', 'd'};
-const string instructions[5] = {"Use 'a' to add a person.", "Use 'd' to display persons.", "Use 'i' to display info on instructions.",
-                                "Use 's' to search for a person.", "Use 'q' if you want to quit."};
-
+// display, search, add, info, quit, clear console, edit, remove
+// no organization, org. names in alphabetical order, org. by gender, org. by birth year, org. by death year
+const char commands[13] = {'d', 's', 'a', 'i', 'q', 'c', 'e', 'r',
+                           'o', 'n', 'g', 'b', 'd'};
+const string instructions[8] = {"Use 'a' to add a person.", "Use 'c' to clear the console.", "Use 'd' to display persons.",
+                                "Use 'e' to edit a person.", "Use 'i' to display info on instructions.",
+                                "Use 'r' to remove a person.", "Use 's' to search for a person.",
+                                "Use 'q' if you want to quit."};
 const string displayInstructions[5] = {"Use 'b' to organize by birth year." ,"Use 'd' to organize by death year." ,"Use 'g' to organize by gender.",
                                        "Use 'n' to organize by names in alphabetical order." ,"Use 'o' to have no organization."};
 
@@ -35,7 +38,7 @@ void Console::clearBuffer() {
 }
 
 void Console::printInstructions() {
-    for(int i = 0; i < 6; i++) {
+    for(int i = 0; i < 8; i++) {
         println(instructions[i]);
     }
 }
@@ -46,18 +49,42 @@ void Console::printDisplayInstructions() {
     }
 }
 
-void Console::printColumns() {
+void Console::printColumns(bool includeIndex) {
+    if(includeIndex) {
+        print("      ");
+    }
     print("Name");
     addW(30);
     print("Gender");
     addW(16);
     print("Birth year");
     addW(16);
-    print("Death year");
-    addW(16);
-    println("Nationality");
-    for (int i = 0; i < 85; i++) {
+    println("Death year");
+    if(includeIndex) {
+        print("      ");
+    }
+    for (int i = 0; i < 66; i++) {
         print("=");
+    }
+    newLine();
+}
+
+void Console::printPersons(vector<Person> persons, bool reverse, bool includeIndex) {
+    if(persons.size() <= 0) {
+        println("No persons to display.");
+        return;
+    }
+    newLine();
+    printColumns(includeIndex);
+    for(unsigned int i = (reverse ? persons.size() - 1 : 0); i < persons.size(); i += (reverse ? -1 : 1)) {
+        if(includeIndex) {
+            string s = to_string(i + 1);
+            print(s);
+            for(unsigned int j = 0; j < 6 - s.length(); j++) {
+                print(" ");
+            }
+        }
+        println(persons[i].getOutput());
     }
     newLine();
 }
@@ -110,7 +137,7 @@ string Console::getString(string s, bool ignore) {
 
 //type = 0 checks for basic commands, type = 1 checks for display organization commands
 int Console::getIndex(char c, int type) {
-    for(int i = type * 5; i < (type + 1) * 5; i++) {
+    for(int i = type * 8; i < (type == 0 ? 8 : 13); i++) {
         if(c == commands[i]) {
             return i;
         }
@@ -130,30 +157,18 @@ int Console::getInstruction(int type) {
             break;
         }
     }
-    return i - (type == 1 ? 5 : 0);
+    return i - (type == 1 ? 8 : 0);
 }
 
-void Console::printPersons(vector<Person> persons, bool reverse) {
-    if(persons.size() <= 0) {
-        println("No persons to display.");
-        return;
-    }
-    newLine();
-    printColumns();
-    for(unsigned int i = (reverse ? persons.size() - 1 : 0); i < persons.size(); i += (reverse ? -1 : 1)) {
-        println(persons[i].getOutput());
-    }
-    newLine();
-}
+
 
 void Console::process(string fileName) {
-    PersonManager pm = PersonManager(fileName);
-
     time_t t = time(NULL);
     tm* tPtr = localtime(&t);
     int currentYear = tPtr -> tm_year + 1900;
     println("The year is "+to_string(currentYear)+" and you're on Earth.");
 
+    PersonManager pm = PersonManager(fileName, currentYear);
     printInstructions();
     while(true) {
         int i = getInstruction(0);
@@ -162,13 +177,13 @@ void Console::process(string fileName) {
             printDisplayInstructions();
             int o = getInstruction(1);
             bool rev = getBool("Reverse output");
-            printPersons(pm.getOrganizedPersons(o), rev);
+            printPersons(pm.getOrganizedPersons(o), rev, false);
         }
         if(i == 1) { // search
-            printPersons(pm.getSearchResults(*this), false);
+            printPersons(pm.getSearchResults(*this), false, false);
         }
         if(i == 2) { // add person
-            pm.add(*this, currentYear);
+            pm.add(*this);
         }
         if(i == 3) { // info
             printInstructions();
@@ -176,6 +191,22 @@ void Console::process(string fileName) {
         if(i == 4) { // quit
             break;
         }
+        if(i == 5) { // clear console
+            #ifdef _WIN32
+                system("cls");
+            #else
+                system("clear");
+            #endif
+        }
+        if(i == 6) { // edit person
+            vector<Person> persons = pm.getOrganizedPersons(1); // organized in alphabetical order
+            printPersons(persons, false, true); // alphabetical organization
+            pm.edit(*this, persons);
+        }
+        if(i == 7) { // remove person
+            // are you sure you want to remove?
+        }
+
     }
 }
 

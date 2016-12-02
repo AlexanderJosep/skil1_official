@@ -1,24 +1,79 @@
 #include "personmanager.h"
 
-PersonManager::PersonManager(string fileName) {
+PersonManager::PersonManager(string fileName, int currentYear) {
     this -> storage = Storage(fileName);
     this -> persons = storage.getPersons();
+    this -> currentYear = currentYear;
 }
 
-void PersonManager::add(Console &c, int currentYear) {
-    string name = c.getString("Name", true);
+void PersonManager::add(Console &c) {
+    string name = getName(c, true);
+    short gender = getGender(c, true);
+    short birthYear = getBirthYear(c, true);
+    short deathYear = getDeathYear(c, true, birthYear);
+    persons.push_back(Person(name, gender, birthYear, deathYear));
+    storage.savePersons(persons);
+    c.println("You have added "+name+" to the list.");
+    c.newLine();
+}
+
+void PersonManager::edit(Console &c, vector<Person> pList) {
+    short index;
+    while (true){
+        index = c.getShort("Select index from the list (1-"+to_string(persons.size())+")");
+        if(index > 0 && index <= (signed) persons.size()) {
+            break;
+        }
+        c.println("Invalid index!");
+        c.clearBuffer();
+    }
+
+    for(unsigned int i = 0; i < persons.size(); i++) { // get the actual index ; the old one was from the alphabetical ordering
+        if(persons[i].getName() == pList[index - 1].getName() && persons[i].getGender() == pList[index - 1].getGender()
+                && persons[i].getBirthYear() == pList[index - 1].getBirthYear() && persons[i].getDeathYear() == pList[index - 1].getDeathYear()) {
+            index = i;
+            break;
+        }
+    }
+    string oldName = persons[index].getName();
+    c.println("Old name: "+oldName);
+    string name = getName(c, false);
+    string oldGender = (persons[index].getGender() == 0 ? "Male" : "Female");
+    c.println("Old gender: "+oldGender);
+    short gender = getGender(c, false);
+    c.println("Old birth year: "+to_string(persons[index].getBirthYear()));
+    short birthYear = getBirthYear(c, false);
+    if(persons[index].getDeathYear() > 0) {
+         c.println("Old death year: "+to_string(persons[index].getDeathYear()));
+    } else {
+         c.println("Old person did not have a death year");
+    }
+    short deathYear = getDeathYear(c, false, birthYear);
+    persons[index].setData(name, gender, birthYear, deathYear);
+    storage.savePersons(persons);
+    c.println("You have edited "+name+" (old name: "+oldName+").");
+}
+
+string PersonManager::getName(Console &c, bool n) {
+    string s = n ? "Name" : "New name";
+    string name = c.getString(s, true);
     while(true) {
         if(validName(name)) {
-           name = getFinalName(name);
+           name = capitialize(name);
            break;
         } else {
             c.println("Invalid name!");
-            name = c.getString("Name", false);
+            name = c.getString(s, false);
         }
     }
+    return name;
+}
+
+short PersonManager::getGender(Console &c, bool n) {
+    string s = n ? "Gender" : "New gender";
     short gender;
     while(true) {
-        char g = c.getChar("Gender (m/f)");
+        char g = c.getChar(s + " (m/f)");
         if(g == 'm' || g == 'f') {
             gender = (g == 'm' ? 0 : 1);
             break;
@@ -26,31 +81,38 @@ void PersonManager::add(Console &c, int currentYear) {
         c.println("Invalid gender!");
         c.clearBuffer();
     }
+    return gender;
+}
+
+short PersonManager::getBirthYear(Console &c, bool n) {
+    string s = n ? "Birth year" : "New birth year";
     short birthYear;
     while (true){
-        birthYear = c.getShort("Birth year");
+        birthYear = c.getShort(s);
         if(birthYear > 0 && birthYear <= currentYear) {
             break;
         }
         c.println("Invalid birth year!");
         c.clearBuffer();
     }
+    return birthYear;
+}
 
-        //short answer;
+short PersonManager::getDeathYear(Console &c, bool n, int birthYear) {
+
     short deathYear = -1;
     if(c.getBool("Person dead")) {
         while(true) {
-            deathYear = c.getShort("Death year");
+            string s = n ? "Death year" : "New death year";
+            deathYear = c.getShort(s);
             if(deathYear >= birthYear && deathYear <= currentYear) {
                 break;
             }
             c.println("Please choose a death year the same or after the birth year.");
+            c.clearBuffer();
         }
     }
-    persons.push_back(Person(name, gender, birthYear, deathYear));
-    storage.savePersons(persons);
-    c.println("You have added "+name+" to the list.");
-    c.newLine();
+    return deathYear;
 }
 
 vector<Person> PersonManager::getOrganizedPersons(int o) {
@@ -121,12 +183,6 @@ bool PersonManager::validName(string name) {
         }
     }
     return true;
-}
-
-string PersonManager::getFinalName(string name) {
-    name = capitialize(name);
-
-    return name;
 }
 
 string PersonManager::trim(string s) {

@@ -1,12 +1,10 @@
 #include "person.h"
 
-Person::Person(string name, short gender, short birthYear, short deathYear)
-{
+Person::Person(string name, short gender, short birthYear, short deathYear) {
     this -> name = name;
     this -> gender = gender;
     this -> birthYear = birthYear;
     this -> deathYear = deathYear;
-    // this -> nationality = nationality;
 }
 
 string Person::getName() {
@@ -25,9 +23,13 @@ short Person::getDeathYear() {
     return deathYear;
 }
 
-/*string Person::getNationality() {
-    return nationality;
-}*/
+void Person::setData(string name, short gender, short birthYear, short deathYear) {
+    this -> name = name;
+    this -> gender = gender;
+    this -> birthYear = birthYear;
+    this -> deathYear = deathYear;
+}
+
 
 string Person::getStoreOutput() {
     string copy = name;

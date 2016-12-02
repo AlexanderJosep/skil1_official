@@ -5,31 +5,31 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include "person.h"
 
 using namespace std;
 
-class Console
-{
+class Console {
 public:
     Console();
-    char getChar(string s);
-    short getShort(string s);
-    bool getBool(string s);
-    string getString(string s, bool ignore);
-    void addW(int w);
-    void print(string s);
-    void println(string s);
-    void newLine();
-    void clearBuffer();
-    int getInstruction(int type);
-    void printInstructions();
-    void printDisplayInstructions();
-    void printColumns();
-    void printPersons(vector<Person> persons, bool reverse);
-    void process(string fileName);
+    void addW(int w); // prints setw(w) to the console
+    void print(string s); // prints s to the console
+    void println(string s); // prints s and \n to the console
+    void newLine(); // prints \n to the console
+    void printInstructions(); // prints all basic command instructions
+    void printDisplayInstructions(); // prints all display organization instructions
+    void printColumns(bool includeIndex); // print all columns
+    void printPersons(vector<Person> persons, bool reverse, bool includeIndex); // print all persons and reverses the output if reverse is true
+    void clearBuffer(); // clears the stream buffer until it reaches \n
+    char getChar(string s); // gets user input char
+    short getShort(string s); // gets user input short
+    bool getBool(string s); // gets user input bool (y/n)
+    string getString(string s, bool ignore); // gets user input string and if ignore is true it ignores the first letter in the input buffer
+    int getInstruction(int type); // gets the basic and organization command instruction
+    void process(string fileName); // includes the main program loop
 private:
-    int getIndex(char c, int type);
+    int getIndex(char c, int type); // gets the index of the basic/organization command
 };
 
 

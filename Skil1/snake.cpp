@@ -5,7 +5,7 @@ using namespace std;
 const char keys[8] = {'W', 'A', 'S', 'D', 'w', 'a', 's', 'd'};
 
 Snake::Snake(Console &c) {
-    short gridSize = getGridSize(c, "Grid size(x*x):");
+    short gridSize = getGridSize(c, "Grid size(3-50):");
     grid.setGrid(gridSize);
     grid.initialize();
 }
@@ -25,7 +25,7 @@ short Snake::getGridSize(Console &c, string s) {
     return in;
 }
 
-int Snake::getDirection() {
+int Snake::getDirection(Console &c) {
     cout << "Enter key: ";
     char in;
     cin >> in;
@@ -34,14 +34,15 @@ int Snake::getDirection() {
             return i;
         }
     }
-    cout << "Invalid key, use WASD." << endl;
-    return getDirection();
+    c.println("Invalid key, use WASD.");
+    c.clearBuffer();
+    return getDirection(c);
 }
 
 void Snake::processSnake(Console &c) {
     while(true) {
         grid.print(c);
-        if(!grid.update(c, getDirection())) {
+        if(!grid.update(c, getDirection(c))) {
             if(grid.hasWon()) {
                  c.println("You WIN. Points: " + to_string(grid.getSnakeSize() - 3));
             } else {

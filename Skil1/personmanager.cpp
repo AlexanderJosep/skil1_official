@@ -85,6 +85,7 @@ string PersonManager::getName(Console &c, bool n) {
     string s = n ? "Name" : "New name";
     string name = c.getString(s, true);
     while(true) {
+        name = trim(name);
         if(validName(name)) {
            name = capitialize(name);
            break;
@@ -201,7 +202,7 @@ vector<Person> PersonManager::getOrganizedPersons(int o) {
 }
 
 bool PersonManager::validName(string name) {
-    if(name.find("  ") != string::npos) {
+    if(name.length() <= 0 || name.find("  ") != string::npos) {
         return false;
     }
     for(unsigned int i = 0; i < name.length(); i++) {

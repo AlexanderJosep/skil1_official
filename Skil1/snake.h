@@ -14,7 +14,7 @@ public:
     void processSnake(Console &c); // processes the snake game
 private:
     short getGridSize(Console &c, string s); // gets user input grid size
-    int getDirection(); // get next directon
+    int getDirection(Console &c); // get next directon
     SnakeGrid grid;
 };
 

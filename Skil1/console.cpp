@@ -8,8 +8,7 @@ const string instructions[5] = {"Use 'a' to add a person.", "Use 'd' to display 
 const string displayInstructions[5] = {"Use 'b' to organize by birth year." ,"Use 'd' to organize by death year." ,"Use 'g' to organize by gender.",
                                        "Use 'n' to organize by names in alphabetical order." ,"Use 'o' to have no organization."};
 
-Console::Console()
-{
+Console::Console() {
 
 }
 
@@ -91,8 +90,8 @@ bool Console::getBool(string s) {
 string Console::getString(string s) {
     string in;
     while(true) {
-        cin.ignore();
         print(s + " (max 30 chars): ");
+        cin.ignore();
         getline(cin, in);
         if(in.length() <= 30) {
             break;

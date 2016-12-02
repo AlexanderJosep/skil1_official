@@ -15,7 +15,15 @@ PersonManager::PersonManager(string fileName) {
 }
 
 void PersonManager::add(Console c, string fileName, int currentYear) {
-    string name = c.getString("Name");
+    string name;
+    while(true) {
+        name = trim(c.getString("Name"));
+        if(validName(name)) {
+           name = getFinalName(name);
+           break;
+        }
+        c.println("Invalid name!");
+    }
     short gender;
     while(true) {
         char g = c.getChar("Gender (m/f)");
@@ -29,7 +37,7 @@ void PersonManager::add(Console c, string fileName, int currentYear) {
     short birthYear;
     while (true){
         birthYear = c.getShort("Birth year");
-        if(birthYear >= 0 || birthYear <= currentYear) {
+        if(birthYear > 0 || birthYear <= currentYear) {
             break;
         }
         c.println("Invalid birth year!");
@@ -41,7 +49,7 @@ void PersonManager::add(Console c, string fileName, int currentYear) {
     if(c.getBool("Person dead")) {
         while(true) {
             deathYear = c.getShort("Death year");
-            if(deathYear >= birthYear) {
+            if(deathYear >= birthYear && deathYear <= currentYear) {
                 break;
             }
             c.println("Please choose a death year the same or after the birth year.");
@@ -118,6 +126,49 @@ vector<Person> PersonManager::getOrganizedPersons(int o) {
 
     }
     return out;
+}
+
+bool PersonManager::validName(string name) {
+    if(name.find("  ") != string::npos) {
+        return false;
+    }
+    for(unsigned int i = 0; i < name.length(); i++) {
+        if(!isalpha(name[i]) && name[i] != 32) {
+            return false;// $$$$$$$$$$$
+        }
+    }
+    return true;
+}
+
+string PersonManager::getFinalName(string name) {
+    name = capitialize(name);
+
+    return name;
+}
+
+string PersonManager::trim(string s) {
+    s.erase(find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(), s.end());
+    s.erase(s.begin(), find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace))));
+    return s;
+}
+
+string PersonManager::capitialize(string s) {
+    s = toLowerCase(s);
+    const char* c = s.c_str();
+    bool capitalizeNext = true;
+    char out[s.length() - 1];
+    for(unsigned int i = 0; i <= s.length(); i++) {
+        out[i] = *(c + i);
+        if(capitalizeNext && out[i] != ' ') {
+            capitalizeNext = false;
+            out[i] -= 32;
+        }
+        if(out[i] == ' ') {
+            capitalizeNext = true;
+        }
+    }
+    delete c;
+    return string(out);
 }
 
 string PersonManager::toLowerCase(string s) {

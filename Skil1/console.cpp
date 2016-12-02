@@ -53,7 +53,7 @@ void Console::printColumns() {
     addW(34);
     print("Birth year:");
     addW(30);
-    print("Death year:");
+    println("Death year:");
     for (int i = 0; i < 105; i++) {
         print("=");
     }

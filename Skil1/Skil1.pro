@@ -13,13 +13,17 @@ SOURCES += main.cpp \
     person.cpp \
     personmanager.cpp \
     console.cpp \
-    storage.cpp
+    storage.cpp \
+    snake.cpp \
+    snakegrid.cpp
 
 HEADERS += \
     person.h \
     personmanager.h \
     console.h \
-    storage.h
+    storage.h \
+    snake.h \
+    snakegrid.h
 
 DISTFILES += \
     persons.txt

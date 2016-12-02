@@ -50,9 +50,11 @@ void PersonManager::remove(Console &c, vector<Person> pList) {
     string name = persons[index].getName();
     if(c.getBool("Are you sure you want to delete "+name)) {
         persons.erase(persons.begin() + index);
+        storage.savePersons(persons);
+        c.println("You have deleted "+name+".");
+    } else {
+        c.println("Cancelled.");
     }
-    storage.savePersons(persons);
-    c.println("You have deleted "+name+".");
 }
 
 short PersonManager::getRealIndex(vector<Person> pList, int index) {

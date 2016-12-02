@@ -1,4 +1,5 @@
 #include <string>
+#include <windows.h>
 
 #include "console.h"
 

@@ -1,14 +1,15 @@
 #include "console.h"
 #include "personmanager.h"
+#include "snake.h"
 
 // display, search, add, info, quit, clear console, edit, remove
 // no organization, org. names in alphabetical order, org. by gender, org. by birth year, org. by death year
-const char commands[13] = {'d', 's', 'a', 'i', 'q', 'c', 'e', 'r',
+const char commands[14] = {'d', 's', 'a', 'i', 'q', 'c', 'e', 'r', 'g',
                            'o', 'n', 'g', 'b', 'd'};
-const string instructions[8] = {"Use 'a' to add a person.", "Use 'c' to clear the console.", "Use 'd' to display persons.",
-                                "Use 'e' to edit a person.", "Use 'i' to display info on instructions.",
-                                "Use 'r' to remove a person.", "Use 's' to search for a person.",
-                                "Use 'q' if you want to quit."};
+const string instructions[9] = {"Use 'a' to add a person.", "Use 'c' to clear the console.", "Use 'd' to display persons.",
+                                "Use 'e' to edit a person.","Use 'g' to start a game of snake.",
+                                "Use 'i' to display info on instructions.", "Use 'r' to remove a person.",
+                                "Use 's' to search for a person.", "Use 'q' if you want to quit."};
 const string displayInstructions[5] = {"Use 'b' to organize by birth year." ,"Use 'd' to organize by death year." ,"Use 'g' to organize by gender.",
                                        "Use 'n' to organize by names in alphabetical order." ,"Use 'o' to have no organization."};
 
@@ -38,7 +39,7 @@ void Console::clearBuffer() {
 }
 
 void Console::printInstructions() {
-    for(int i = 0; i < 8; i++) {
+    for(int i = 0; i < 9; i++) {
         println(instructions[i]);
     }
 }
@@ -137,7 +138,7 @@ string Console::getString(string s, bool ignore) {
 
 //type = 0 checks for basic commands, type = 1 checks for display organization commands
 int Console::getIndex(char c, int type) {
-    for(int i = type * 8; i < (type == 0 ? 8 : 13); i++) {
+    for(int i = type * 9; i < (type == 0 ? 9 : 14); i++) {
         if(c == commands[i]) {
             return i;
         }
@@ -157,10 +158,8 @@ int Console::getInstruction(int type) {
             break;
         }
     }
-    return i - (type == 1 ? 8 : 0);
+    return i - (type == 1 ? 9 : 0);
 }
-
-
 
 void Console::process(string fileName) {
     time_t t = time(NULL);
@@ -204,10 +203,13 @@ void Console::process(string fileName) {
             pm.edit(*this, persons);
         }
         if(i == 7) { // remove person
-            // are you sure you want to remove?
             vector<Person> persons = pm.getOrganizedPersons(1); // organized in alphabetical order
             printPersons(persons, false, true); // alphabetical organization
             pm.remove(*this, persons);
+        }
+        if(i == 8) { // snake
+            Snake snake = Snake(*this);
+            snake.processSnake(*this);
         }
 
     }

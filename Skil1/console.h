@@ -26,7 +26,7 @@ public:
     void printInstructions();
     void printDisplayInstructions();
     void printColumns();
-    void printPersons(vector<Person> persons, bool reverse, int o);
+    void printPersons(vector<Person> persons, bool reverse);
 private:
     int getIndex(char c, int type);
 };

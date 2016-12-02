@@ -17,9 +17,9 @@ public:
     short getBirthYear();
     short getDeathYear();
     string getStoreOutput();
-    string getOutput(int type);
+    string getOutput();
 private:
-    void updateString(ostringstream &o, string data, int &priorLength);
+    void updateString(ostringstream &o, string data, int &priorLength, int columnSize);
     string name;
     short gender; // 0 male, 1 female
     short birthYear;

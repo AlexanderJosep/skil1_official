@@ -47,14 +47,14 @@ void Console::printDisplayInstructions() {
 }
 
 void Console::printColumns() {
-    print("Name:");
-    addW(32);
-    print("Gender:");
-    addW(34);
-    print("Birth year:");
+    print("Name");
     addW(30);
-    println("Death year:");
-    for (int i = 0; i < 105; i++) {
+    print("Gender");
+    addW(16);
+    print("Birth year");
+    addW(16);
+    println("Death year");
+    for (int i = 0; i < 70; i++) {
         print("=");
     }
     newLine();
@@ -113,9 +113,6 @@ int Console::getIndex(char c, int type) {
 }
 
 int Console::getInstruction(int type) {
-    if(type == 2) {
-        return (getChar("Reverse output (y/n)") == 'y' ? 1 : 0);
-    }
     int i;
     while(true) {
         i = getIndex(getChar((type == 0 ? "Instruction" : "Organization")), type);
@@ -130,14 +127,15 @@ int Console::getInstruction(int type) {
     return i - (type == 1 ? 5 : 0);
 }
 
-void Console::printPersons(vector<Person> persons, bool reverse, int o) {
+void Console::printPersons(vector<Person> persons, bool reverse) {
     if(persons.size() <= 0) {
         println("No persons to display.");
         return;
     }
+    newLine();
     printColumns();
     for(unsigned int i = (reverse ? persons.size() - 1 : 0); i < persons.size(); i += (reverse ? -1 : 1)) {
-        println(persons[i].getOutput(o));
+        println(persons[i].getOutput());
     }
     newLine();
 }

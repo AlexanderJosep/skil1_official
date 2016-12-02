@@ -23,14 +23,14 @@ void process() {
     while(true) {
         int i = c.getInstruction(0);
         if(i == 0) { // display
+            c.newLine();
             c.printDisplayInstructions();
             int o = c.getInstruction(1);
-            bool rev = c.getInstruction(2) == 1;
-            c.newLine();
-            c.printPersons(pm.getOrganizedPersons(o), rev, o);
+            bool rev = c.getBool("Reverse output");
+            c.printPersons(pm.getOrganizedPersons(o), rev);
         }
         if(i == 1) { // search
-            c.printPersons(pm.getSearchResults(c), false, 0);
+            c.printPersons(pm.getSearchResults(c), false);
         }
         if(i == 2) { // add person
             pm.add(c, FILE_NAME, currentYear);
@@ -47,7 +47,7 @@ void process() {
     }
 }
 
-//rada eftir kyni, ari, nafni, danardag
+
 int main() {
     process();
     return 1;

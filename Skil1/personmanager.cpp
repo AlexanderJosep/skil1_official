@@ -50,6 +50,7 @@ void PersonManager::add(Console c, string fileName, int currentYear) {
     persons.push_back(Person(name, gender, birthYear, deathYear));
     save(fileName);
     c.println("You have added "+name+" to the list.");
+    c.newLine();
 }
 
 void PersonManager::save(string fileName) {

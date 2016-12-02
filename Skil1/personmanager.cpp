@@ -18,16 +18,7 @@ void PersonManager::add(Console &c) {
 }
 
 void PersonManager::edit(Console &c, vector<Person> pList) {
-    short index;
-    while (true){
-        index = c.getShort("Select index from the list (1-"+to_string(persons.size())+")");
-        if(index > 0 && index <= (signed) persons.size()) {
-            break;
-        }
-        c.println("Invalid index!");
-        c.clearBuffer();
-    }
-
+    short index = getListIndex(c);
     for(unsigned int i = 0; i < persons.size(); i++) { // get the actual index ; the old one was from the alphabetical ordering
         if(persons[i].getName() == pList[index - 1].getName() && persons[i].getGender() == pList[index - 1].getGender()
                 && persons[i].getBirthYear() == pList[index - 1].getBirthYear() && persons[i].getDeathYear() == pList[index - 1].getDeathYear()) {
@@ -52,6 +43,40 @@ void PersonManager::edit(Console &c, vector<Person> pList) {
     persons[index].setData(name, gender, birthYear, deathYear);
     storage.savePersons(persons);
     c.println("You have edited "+name+" (old name: "+oldName+").");
+}
+
+void PersonManager::remove(Console &c, vector<Person> pList) {
+    short index = getRealIndex(pList, getListIndex(c));
+    string name = persons[index].getName();
+    if(c.getBool("Are you sure you want to delete "+name)) {
+        persons.erase(persons.begin() + index);
+    }
+    storage.savePersons(persons);
+    c.println("You have deleted "+name+".");
+}
+
+short PersonManager::getRealIndex(vector<Person> pList, int index) {
+    for(unsigned int i = 0; i < persons.size(); i++) {
+        if(persons[i].getName() == pList[index - 1].getName() && persons[i].getGender() == pList[index - 1].getGender()
+                && persons[i].getBirthYear() == pList[index - 1].getBirthYear() && persons[i].getDeathYear() == pList[index - 1].getDeathYear()) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
+short PersonManager::getListIndex(Console &c) {
+    short index;
+    while (true){
+        index = c.getShort("Select index from the list (1-"+to_string(persons.size())+")");
+        if(index > 0 && index <= (signed) persons.size()) {
+            break;
+        }
+        c.println("Invalid index!");
+        c.clearBuffer();
+    }
+    return index;
 }
 
 string PersonManager::getName(Console &c, bool n) {

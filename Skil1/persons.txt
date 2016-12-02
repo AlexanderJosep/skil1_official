@@ -7,7 +7,6 @@ John_Cena 0 1923 1923
 John_McCarthy 0 1927 2011
 John_Warner_Backus 0 1924 2007
 Marvin_Lee_Minsky 0 1927 2016
-Alexander_Josep 0 1995 -1
 aleanxa 0 1995 1996
 Frances_Elizabeth_Allen 1 1932 -1
 Shafrira_Goldwasser 1 1958 -1

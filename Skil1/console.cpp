@@ -205,6 +205,9 @@ void Console::process(string fileName) {
         }
         if(i == 7) { // remove person
             // are you sure you want to remove?
+            vector<Person> persons = pm.getOrganizedPersons(1); // organized in alphabetical order
+            printPersons(persons, false, true); // alphabetical organization
+            pm.remove(*this, persons);
         }
 
     }

@@ -119,12 +119,23 @@ vector<Person> PersonManager::getOrganizedPersons(int o) {
     return out;
 }
 
+string PersonManager::toLowerCase(string s) {
+    string out;
+    out.resize(s.size());
+    transform(s.begin(), s.end(), out.begin(), ::tolower);
+    return out;
+}
+
 vector<Person> PersonManager::getSearchResults(Console c) {
-    string search = c.getString("Search");
+    string search = toLowerCase(c.getString("Search"));
     vector<Person> out;
+    string male = "male";
+    string female = "female";
    // search.
     for(Person p : persons) {
-        if(p.getName().find(search) != string::npos) {
+        if(toLowerCase(p.getName()).find(search) != string::npos || to_string(p.getBirthYear()).find(search) != string::npos
+                || (p.getGender() == 0 && male.find(search) != string::npos) || (search != male && p.getGender() == 1 && female.find(search) != string::npos)
+                || (p.getDeathYear() >= 0 && to_string(p.getDeathYear()).find(search) != string::npos)) {
            out.push_back(p);
         }
     }

@@ -21,6 +21,7 @@ public:
     vector<Person> getSearchResults(Console c);
 private:
     void save(string fileName);
+    string toLowerCase(string s);
     vector<Person> persons;
 };
 

@@ -26,8 +26,7 @@ void process() {
             c.printDisplayInstructions();
             int o = c.getInstruction(1);
             bool rev = c.getInstruction(2) == 1;
-            cout << endl;
-            c.printColumns();
+            c.newLine();
             c.printPersons(pm.getOrganizedPersons(o), rev, o);
         }
         if(i == 1) { // search

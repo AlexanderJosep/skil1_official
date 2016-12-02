@@ -135,7 +135,9 @@ void Console::printPersons(vector<Person> persons, bool reverse, int o) {
         println("No persons to display.");
         return;
     }
+    printColumns();
     for(unsigned int i = (reverse ? persons.size() - 1 : 0); i < persons.size(); i += (reverse ? -1 : 1)) {
-        cout << persons[i].getOutput(o) << endl;
+        println(persons[i].getOutput(o));
     }
+    newLine();
 }

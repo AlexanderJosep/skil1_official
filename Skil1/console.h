@@ -15,7 +15,13 @@ public:
     Console();
     char getChar(string s);
     short getShort(string s);
+    bool getBool(string s);
     string getString(string s);
+    void addW(int w);
+    void print(string s);
+    void println(string s);
+    void newLine();
+    void clearBuffer();
     int getInstruction(int type);
     void printInstructions();
     void printDisplayInstructions();

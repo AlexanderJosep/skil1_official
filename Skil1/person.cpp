@@ -35,28 +35,10 @@ string Person::getOutput(int type) {
     ostringstream out;
     string s = (gender == 0 ? "Male" : "Female");
     int priorLength  = 0;
-    if(type == 0 || type == 1) {
-        updateString(out, "" + name, priorLength);
-    }
-    if(type == 2) {
-        updateString(out, "" + s, priorLength);
-    }
-    if(type == 3) {
-        updateString(out, "" + to_string(birthYear), priorLength);
-    }
-    if(type == 4) {
-        updateString(out, "" + to_string(deathYear), priorLength);
-    }
-    if(type != 0 && type != 1) {
-        updateString(out, "" + name, priorLength);
-    }
-    if(type != 2) {
-        updateString(out, "" + s, priorLength);
-    }
-    if(type != 3) {
-        updateString(out, "" + to_string(birthYear), priorLength);
-    }
-    if(type != 4 && deathYear >= 0) {
+    updateString(out, "" + name, priorLength);
+    updateString(out, "" + s, priorLength);
+    updateString(out, "" + to_string(birthYear), priorLength);
+    if(deathYear >= 0) {
         updateString(out, "" + to_string(deathYear), priorLength);
     }
     return out.str();

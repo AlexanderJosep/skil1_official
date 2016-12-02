@@ -13,45 +13,92 @@ Console::Console()
 
 }
 
+void Console::addW(int w) {
+    cout << setw(w);
+}
+
+void Console::print(string s) {
+    cout << s;
+}
+
+void Console::println(string s) {
+    cout << s << endl;
+}
+
+void Console::newLine() {
+    cout << endl;
+}
+
+void Console::clearBuffer() {
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
 void Console::printInstructions() {
     for(int i = 0; i < 6; i++) {
-         cout << instructions[i] << endl;
+        println(instructions[i]);
     }
 }
 
 void Console::printDisplayInstructions() {
     for(int i = 0; i < 5; i++) {
-         cout << displayInstructions[i] << endl;
+        println(displayInstructions[i]);
     }
 }
 
 void Console::printColumns() {
-    cout << "Name:" << setw(32) << "Gender:" << setw(34) << "Birth year:" << setw(30) << "Death year:" << endl;
+    print("Name:");
+    addW(32);
+    print("Gender:");
+    addW(34);
+    print("Birth year:");
+    addW(30);
+    print("Death year:");
     for (int i = 0; i < 105; i++) {
-        cout << "=";
+        print("=");
     }
-    cout << endl;
+    newLine();
 }
 
 char Console::getChar(string s) {
-    cout << s << ": ";
+    print(s + ": ");
     char c;
     cin >> c;
     return c;
 }
 
 short Console::getShort(string s) {
-    cout << s << ": ";
+    print(s + ": ");
     short in;
     cin >> in;
     return in;
 }
 
+bool Console::getBool(string s) {
+    char c;
+    while(true) {
+        clearBuffer();
+        print(s + " (y/n): ");
+        cin >> c;
+        if(c == 'y' || c == 'n') {
+            break;
+        }
+        println("Invalid command!");
+    }
+    return c == 'y';
+}
+
 string Console::getString(string s) {
-    cin.ignore();
-    cout << s << " (Max 30 char): ";
     string in;
-    getline(cin, in);
+    while(true) {
+        cin.ignore();
+        print(s + " (max 30 chars): ");
+        getline(cin, in);
+        if(in.length() <= 30) {
+            break;
+        }
+        println("Please don't use more than 30 characters.");
+    }
     return in;
 }
 
@@ -73,7 +120,8 @@ int Console::getInstruction(int type) {
     while(true) {
         i = getIndex(getChar((type == 0 ? "Instruction" : "Organization")), type);
         if(i < 0) {
-            cout << "Invalid command!" << endl;
+            println("Invalid command!");
+            clearBuffer();
             continue;
         } else {
             break;
@@ -83,6 +131,10 @@ int Console::getInstruction(int type) {
 }
 
 void Console::printPersons(vector<Person> persons, bool reverse, int o) {
+    if(persons.size() <= 0) {
+        println("No persons to display.");
+        return;
+    }
     for(unsigned int i = (reverse ? persons.size() - 1 : 0); i < persons.size(); i += (reverse ? -1 : 1)) {
         cout << persons[i].getOutput(o) << endl;
     }

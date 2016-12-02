@@ -14,6 +14,44 @@ PersonManager::PersonManager(string fileName) {
     in.close();
 }
 
+void PersonManager::add(Console c, string fileName, int currentYear) {
+    string name = c.getString("Name");
+    short gender;
+    while(true) {
+        char g = c.getChar("Gender (m/f)");
+        if(g == 'm' || g == 'f') {
+            gender = (g == 'm' ? 0 : 1);
+            break;
+        }
+        c.println("Invalid gender!");
+        c.clearBuffer();
+    }
+    short birthYear;
+    while (true){
+        birthYear = c.getShort("Birth year");
+        if(birthYear >= 0 || birthYear <= currentYear) {
+            break;
+        }
+        c.println("Invalid birth year!");
+        c.clearBuffer();
+    }
+
+        //short answer;
+    short deathYear = -1;
+    if(c.getBool("Person dead")) {
+        while(true) {
+            deathYear = c.getShort("Death year");
+            if(deathYear <= birthYear) {
+                break;
+            }
+            c.println("Please choose a death year the same or after the birth year.");
+        }
+    }
+    persons.push_back(Person(name, gender, birthYear, deathYear));
+    save(fileName);
+    c.println("You have added "+name+" to the list.");
+}
+
 void PersonManager::save(string fileName) {
     ofstream out;
     out.open(fileName);
@@ -22,10 +60,6 @@ void PersonManager::save(string fileName) {
     }
 }
 
-void PersonManager::add(string fileName, string name, short gender, short birthYear, short deathYear) {
-    persons.push_back(Person(name, gender, birthYear, deathYear));
-    save(fileName);
-}
 
 vector<Person> PersonManager::getOrganizedPersons(int o) {
     if(o == 0) { // no organizing
@@ -81,6 +115,18 @@ vector<Person> PersonManager::getOrganizedPersons(int o) {
         }
         return out;
 
+    }
+    return out;
+}
+
+vector<Person> PersonManager::getSearchResults(Console c) {
+    string search = c.getString("Search");
+    vector<Person> out;
+   // search.
+    for(Person p : persons) {
+        if(p.getName().find(search) != string::npos) {
+           out.push_back(p);
+        }
     }
     return out;
 }

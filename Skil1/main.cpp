@@ -1,10 +1,10 @@
 #include <iostream>
-#include "personmanager.h"
-#include "console.h"
-
 #include <iomanip>
 #include <sstream>
 #include <string>
+
+#include "personmanager.h"
+#include "console.h"
 
 using namespace std;
 
@@ -13,6 +13,12 @@ const string FILE_NAME = "persons.txt";
 void process() {
     PersonManager pm = PersonManager(FILE_NAME);
     Console c = Console();
+
+    time_t t = time(NULL);
+    tm* tPtr = localtime(&t);
+    int currentYear = tPtr -> tm_year + 1900;
+    c.println("The year is "+to_string(currentYear)+" and you're on Earth.");
+
     c.printInstructions();
     while(true) {
         int i = c.getInstruction(0);
@@ -22,54 +28,14 @@ void process() {
             bool rev = c.getInstruction(2) == 1;
             cout << endl;
             c.printColumns();
-
-        c.printPersons(pm.getOrganizedPersons(o), rev, o);
+            c.printPersons(pm.getOrganizedPersons(o), rev, o);
         }
         if(i == 1) { // search
-
+            c.printPersons(pm.getSearchResults(c), false, 0);
         }
         if(i == 2) { // add person
-            string name = c.getString("Name");
-            short gender;
-            while(true) {
-                char g = c.getChar("Gender (m/f)");
-                if(g == 'm' || g == 'f') {
-                    gender = (g == 'm' ? 0 : 1);
-                    break;
-                } else {
-                    cout << "Impossible, please select again!" << endl;
-                }
-            }
-            short birthYear = c.getShort("Birth year");
-            while (birthYear <= 0 || birthYear >= 2016){
-                    cout << "Impossible, please select again!" << endl;
-                    birthYear = c.getShort("Birth year");
-            }
-
-            //short answer;
-            while(true) {
-                char a = c.getChar("Is person dead? (y/n)");
-                if(a == 'n') {
-                    pm.add(FILE_NAME, name, gender, birthYear, -1);
-                    cout << "You have added a person to the list. " << endl;
-                    break;
-                }
-                else if(a == 'y'){
-                    short deathYear = c.getShort("Death year");
-                    if(deathYear >= birthYear) {
-                        pm.add(FILE_NAME, name, gender, birthYear, deathYear);
-                    }
-                    else {
-                        while(deathYear < birthYear){
-                            cout << "Impossible, please select again!" << endl;
-                            deathYear = c.getShort("Death year");
-                        }
-                        pm.add(FILE_NAME, name, gender, birthYear, deathYear);
-                    }
-                    cout << "You have added a person to the list. " << endl;
-                    break;
-                }
-            }
+            pm.add(c, FILE_NAME, currentYear);
+        }
         if(i == 3) { // info
             c.printInstructions();
         }
@@ -80,7 +46,6 @@ void process() {
 
         }
     }
-}
 }
 
 //rada eftir kyni, ari, nafni, danardag

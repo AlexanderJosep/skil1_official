@@ -1,21 +1,11 @@
 #include "personmanager.h"
 
 PersonManager::PersonManager(string fileName) {
-    ifstream in;
-    in.open(fileName);
-    string name;
-    short gender;
-    short birthYear;
-    short deathYear;
-    string nationality;
-    while(in >> name && in >> gender && in >> birthYear && in >> deathYear) {
-        replace(name.begin(), name.end(), '_', ' ' );
-        persons.push_back(Person(name, gender, birthYear, deathYear));
-    }
-    in.close();
+    this -> storage = Storage(fileName);
+    this -> persons = storage.getPersons();
 }
 
-void PersonManager::add(Console c, string fileName, int currentYear) {
+void PersonManager::add(Console &c, int currentYear) {
     string name = c.getString("Name", true);
     while(true) {
         if(validName(name)) {
@@ -58,19 +48,10 @@ void PersonManager::add(Console c, string fileName, int currentYear) {
         }
     }
     persons.push_back(Person(name, gender, birthYear, deathYear));
-    save(fileName);
+    storage.savePersons(persons);
     c.println("You have added "+name+" to the list.");
     c.newLine();
 }
-
-void PersonManager::save(string fileName) {
-    ofstream out;
-    out.open(fileName);
-    for(unsigned int i = 0; i < persons.size(); i++) {
-        out << persons[i].getStoreOutput() << endl;
-    }
-}
-
 
 vector<Person> PersonManager::getOrganizedPersons(int o) {
     if(o == 0) { // no organizing
@@ -180,7 +161,7 @@ string PersonManager::toLowerCase(string s) {
     return out;
 }
 
-vector<Person> PersonManager::getSearchResults(Console c) {
+vector<Person> PersonManager::getSearchResults(Console &c) {
     string search = toLowerCase(c.getString("Search", true));
     vector<Person> out;
     string male = "male";

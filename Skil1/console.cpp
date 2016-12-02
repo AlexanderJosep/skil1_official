@@ -1,4 +1,5 @@
 #include "console.h"
+#include "personmanager.h"
 
 //display, search, add, info, quit, no organization, org. names in alphabetical order, org. by gender, org. by birth year, org. by death year
 const char commands[10] = {'d', 's', 'a', 'i', 'q', 'o', 'n', 'g', 'b', 'd'};
@@ -144,3 +145,37 @@ void Console::printPersons(vector<Person> persons, bool reverse) {
     }
     newLine();
 }
+
+void Console::process(string fileName) {
+    PersonManager pm = PersonManager(fileName);
+
+    time_t t = time(NULL);
+    tm* tPtr = localtime(&t);
+    int currentYear = tPtr -> tm_year + 1900;
+    println("The year is "+to_string(currentYear)+" and you're on Earth.");
+
+    printInstructions();
+    while(true) {
+        int i = getInstruction(0);
+        if(i == 0) { // display
+            newLine();
+            printDisplayInstructions();
+            int o = getInstruction(1);
+            bool rev = getBool("Reverse output");
+            printPersons(pm.getOrganizedPersons(o), rev);
+        }
+        if(i == 1) { // search
+            printPersons(pm.getSearchResults(*this), false);
+        }
+        if(i == 2) { // add person
+            pm.add(*this, currentYear);
+        }
+        if(i == 3) { // info
+            printInstructions();
+        }
+        if(i == 4) { // quit
+            break;
+        }
+    }
+}
+

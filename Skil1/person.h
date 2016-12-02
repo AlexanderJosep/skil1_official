@@ -16,6 +16,7 @@ public:
     short getGender();
     short getBirthYear();
     short getDeathYear();
+    string getNationality();
     string getStoreOutput();
     string getOutput();
 private:
@@ -24,6 +25,7 @@ private:
     short gender; // 0 male, 1 female
     short birthYear;
     short deathYear; // -1 if not dead
+    string nationality;
 };
 
 #endif // PERSON_H

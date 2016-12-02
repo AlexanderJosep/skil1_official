@@ -6,6 +6,7 @@ Person::Person(string name, short gender, short birthYear, short deathYear)
     this -> gender = gender;
     this -> birthYear = birthYear;
     this -> deathYear = deathYear;
+    // this -> nationality = nationality;
 }
 
 string Person::getName() {
@@ -23,6 +24,10 @@ short Person::getBirthYear() {
 short Person::getDeathYear() {
     return deathYear;
 }
+
+/*string Person::getNationality() {
+    return nationality;
+}*/
 
 string Person::getStoreOutput() {
     string copy = name;

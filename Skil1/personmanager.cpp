@@ -7,6 +7,7 @@ PersonManager::PersonManager(string fileName) {
     short gender;
     short birthYear;
     short deathYear;
+    string nationality;
     while(in >> name && in >> gender && in >> birthYear && in >> deathYear) {
         replace(name.begin(), name.end(), '_', ' ' );
         persons.push_back(Person(name, gender, birthYear, deathYear));
@@ -55,6 +56,8 @@ void PersonManager::add(Console c, string fileName, int currentYear) {
             c.println("Please choose a death year the same or after the birth year.");
         }
     }
+    string nationality;
+
     persons.push_back(Person(name, gender, birthYear, deathYear));
     save(fileName);
     c.println("You have added "+name+" to the list.");

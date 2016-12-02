@@ -52,8 +52,10 @@ void Console::printColumns() {
     addW(16);
     print("Birth year");
     addW(16);
-    println("Death year");
-    for (int i = 0; i < 70; i++) {
+    print("Death year");
+    addW(16);
+    println("Nationality");
+    for (int i = 0; i < 85; i++) {
         print("=");
     }
     newLine();

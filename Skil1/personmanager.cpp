@@ -39,7 +39,7 @@ void PersonManager::add(Console c, string fileName, int currentYear) {
     short birthYear;
     while (true){
         birthYear = c.getShort("Birth year");
-        if(birthYear > 0 || birthYear <= currentYear) {
+        if(birthYear > 0 && birthYear <= currentYear) {
             break;
         }
         c.println("Invalid birth year!");

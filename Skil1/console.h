@@ -16,7 +16,7 @@ public:
     char getChar(string s);
     short getShort(string s);
     bool getBool(string s);
-    string getString(string s);
+    string getString(string s, bool ignore);
     void addW(int w);
     void print(string s);
     void println(string s);

@@ -16,14 +16,15 @@ PersonManager::PersonManager(string fileName) {
 }
 
 void PersonManager::add(Console c, string fileName, int currentYear) {
-    string name;
+    string name = c.getString("Name", true);
     while(true) {
-        name = trim(c.getString("Name"));
         if(validName(name)) {
            name = getFinalName(name);
            break;
+        } else {
+            c.println("Invalid name!");
+            name = c.getString("Name", false);
         }
-        c.println("Invalid name!");
     }
     short gender;
     while(true) {
@@ -56,8 +57,6 @@ void PersonManager::add(Console c, string fileName, int currentYear) {
             c.println("Please choose a death year the same or after the birth year.");
         }
     }
-    string nationality;
-
     persons.push_back(Person(name, gender, birthYear, deathYear));
     save(fileName);
     c.println("You have added "+name+" to the list.");
@@ -137,7 +136,7 @@ bool PersonManager::validName(string name) {
     }
     for(unsigned int i = 0; i < name.length(); i++) {
         if(!isalpha(name[i]) && name[i] != 32) {
-            return false;// $$$$$$$$$$$
+            return false;
         }
     }
     return true;
@@ -182,7 +181,7 @@ string PersonManager::toLowerCase(string s) {
 }
 
 vector<Person> PersonManager::getSearchResults(Console c) {
-    string search = toLowerCase(c.getString("Search"));
+    string search = toLowerCase(c.getString("Search", true));
     vector<Person> out;
     string male = "male";
     string female = "female";

@@ -89,11 +89,13 @@ bool Console::getBool(string s) {
     return c == 'y';
 }
 
-string Console::getString(string s) {
+string Console::getString(string s, bool ignore) {
     string in;
     while(true) {
+        if(ignore) {
+            cin.ignore();
+        }
         print(s + " (max 30 chars): ");
-        cin.ignore();
         getline(cin, in);
         if(in.length() <= 30) {
             break;
@@ -102,6 +104,7 @@ string Console::getString(string s) {
     }
     return in;
 }
+
 
 //type = 0 checks for basic commands, type = 1 checks for display organization commands
 int Console::getIndex(char c, int type) {

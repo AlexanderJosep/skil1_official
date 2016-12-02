@@ -12,12 +12,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     person.cpp \
     personmanager.cpp \
-    console.cpp
+    console.cpp \
+    storage.cpp
 
 HEADERS += \
     person.h \
     personmanager.h \
-    console.h
+    console.h \
+    storage.h
 
 DISTFILES += \
     persons.txt

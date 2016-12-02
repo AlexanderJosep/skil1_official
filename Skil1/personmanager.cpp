@@ -41,7 +41,7 @@ void PersonManager::add(Console c, string fileName, int currentYear) {
     if(c.getBool("Person dead")) {
         while(true) {
             deathYear = c.getShort("Death year");
-            if(deathYear <= birthYear) {
+            if(deathYear >= birthYear) {
                 break;
             }
             c.println("Please choose a death year the same or after the birth year.");

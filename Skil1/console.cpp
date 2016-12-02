@@ -101,6 +101,7 @@ string Console::getString(string s, bool ignore) {
             break;
         }
         println("Please don't use more than 30 characters.");
+        ignore = false;
     }
     return in;
 }
